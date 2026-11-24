@@ -16,7 +16,7 @@ setup(
     license='MIT',
     keywords="android malware reverse",
     python_requires='>=3.0',
-    version='3.4.8',
+    version='3.4.9',
     packages=['conf'],
     py_modules=[
         'droidaxml',

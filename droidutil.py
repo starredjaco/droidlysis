@@ -61,7 +61,7 @@ def sanitize_filename(filename):
 
     Returns the sanitized name."""
     # we remove any character which is not letters, numbers, _ or .
-    return re.sub('[^a-zA-Z0-9_\.]', '', filename)
+    return re.sub(r'[^a-zA-Z0-9_\.]', '', filename)
 
 
 def listAll(dirName):

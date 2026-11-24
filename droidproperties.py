@@ -167,7 +167,7 @@ class droidproperties:
         config = configparser.ConfigParser()
         for tracker in j:
             # remove trailing dots
-            code_signature = re.sub('\.\|', '|', tracker['code_signature']).rstrip('.').lstrip('.').replace('.', '/').replace('\/', '/').split('|')
+            code_signature = re.sub(r'\.\|', '|', tracker['code_signature']).rstrip('.').lstrip('.').replace('.', '/').replace(r'\/', '/').split('|')
             for sig in code_signature:
                 if len(re.sub('[^a-zA-Z0-9/_]', '', sig)) == 0:
                     continue

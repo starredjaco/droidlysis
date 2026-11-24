@@ -395,9 +395,9 @@ class droidsample:
 
             list = []
             try:
-                list = self.ziprar.extract_pattern(self.outdir, 'META-INF/.*\.RSA')
+                list = self.ziprar.extract_pattern(self.outdir, r'META-INF/.*\.RSA')
                 if not list:
-                    list = self.ziprar.extract_pattern(self.outdir, 'META-INF/.*\.DSA')
+                    list = self.ziprar.extract_pattern(self.outdir, r'META-INF/.*\.DSA')
             except:
                 logging.debug("Error at extraction: %s" % (sys.exc_info()[0]))
 
@@ -443,7 +443,7 @@ class droidsample:
 
     def extract_certificate_owner_properties(self, owner):
         # owner should not be null
-        m = re.search('C=(\w*)', owner, re.IGNORECASE)
+        m = re.search(r'C=(\w*)', owner, re.IGNORECASE)
         if m is not None:
             cert_country = m.group(0)[2:]
             if re.search('Unknown', cert_country, re.IGNORECASE):
@@ -467,7 +467,7 @@ class droidsample:
                    'CN=VIRUSTOTAL  OU=VIRUSTOTAL  O=VIRUSTOTAL  L=Malaga  ST=Malaga  C=ES',
                    'CN=Qihoo  OU=Qihoo 360 Technology Co Ltd  O=Qihoo 360 Technology Co Ltd  L=Chaoyang  ST=Beijing  C=CN',
                    'CN=KAIDI,OU=KAIDI,O=KAIDI,L=Beijing,ST=Beijing,C=86',
-                   'EMAILADDRESS=android\@avast.com  CN=avast! Android  O=AVAST Software a.s.  L=Prague  ST=Prague  C=CZ')
+                   r'EMAILADDRESS=android\@avast.com  CN=avast! Android  O=AVAST Software a.s.  L=Prague  ST=Prague  C=CZ')
 
         for av in av_list:
             m = re.search(av, owner, re.IGNORECASE)
@@ -477,7 +477,7 @@ class droidsample:
                 self.properties.certificate['av'] = True
 
         # Companies
-        famous_list = ('CN=Android  OU=Android  O=Google Inc\.  L=Moutain View  ST=California  C=US',
+        famous_list = (r'CN=Android  OU=Android  O=Google Inc\.  L=Moutain View  ST=California  C=US',
                        'O=Rovio Mobile Ltd  L=Helsinki  C=FI',
                        'CN=Facebook Corporation  OU=Facebook  O=Facebook Mobile  L=Palo Alto  ST=CA  C=US')
         for f in famous_list:
@@ -602,7 +602,7 @@ class droidsample:
             # search for swf
             metalist = droidutil.get_elements(xmldoc, 'meta-data', 'android:value')
             for item in metalist:
-                if re.search('\.swf', item):
+                if re.search(r'\.swf', item):
                     self.properties.manifest['swf'] = True
 
             # get sms listener
@@ -859,7 +859,7 @@ class droidsample:
                 # generates too many false positives (numbers for other reasons)
                 # so I'm being conservative
                 if mykey.startswith('+') and self.properties.wide['has_phonenumbers']:  # mykey.startswith('+') and
-                    if re.search(b"\+[0-9]{1,3}[0-9]{10,14}", mykey):
+                    if re.search(br"\+[0-9]{1,3}[0-9]{10,14}", mykey):
                         self.properties.wide['phonenumbers'].append(mykey)
                         logging.debug("Phone number spotted: " + mykey)
                         analysis_file = open(os.path.join(self.outdir, droidlysis3.property_dump_file), 'a')
@@ -867,7 +867,7 @@ class droidsample:
                         analysis_file.close()
 
                 # we want to process each potential URL and IP address
-                ip_pattern = re.compile("\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
+                ip_pattern = re.compile(r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}")
                 if ip_pattern.match(mykey):
                     logging.debug("IP address to check: {}".format(mykey))
                     self.interesting_url(mykey)
@@ -1020,9 +1020,9 @@ class droidsample:
                 logging.debug("URL: %s" % url)
 
             # raise a warning if it downloads APKs or for dropbox
-            search = re.findall("\.apk|\.zip", url)
+            search = re.findall(r"\.apk|\.zip", url)
             if search is not None and len(search) > 0:
-                if '\.apk' in search or '\.zip' in search:
+                if r'\.apk' in search or r'\.zip' in search:
                     self.properties.wide['apk_zip_url'] = True
 
         return self.properties.wide['urls']

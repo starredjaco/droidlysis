@@ -63,17 +63,17 @@ class droidziprar:
         files_in_zip = self.handle.namelist()
 
         # guess file type based on contents
-        if [x for x in files_in_zip if re.search("classes\.dex|AndroidManifest\.xml|resources\.arsc|assets/|res/", x)]:
+        if [x for x in files_in_zip if re.search(r"classes\.dex|AndroidManifest\.xml|resources\.arsc|assets/|res/", x)]:
             self.filetype = droidutil.APK
         else:
-            innerzips = [x for x in files_in_zip if re.search("\.apk|\.zip|\.rar", x)]
+            innerzips = [x for x in files_in_zip if re.search(r"\.apk|\.zip|\.rar", x)]
             if innerzips:
                 if self.zipmode:
                     self.filetype = droidutil.ZIP
                 else:
                     self.filetype = droidutil.RAR
             else:
-                if [x for x in files_in_zip if re.search("\.class", x)]:
+                if [x for x in files_in_zip if re.search(r"\.class", x)]:
                     self.filetype = droidutil.CLASS
         return self.filetype, innerzips
 

@@ -5,7 +5,7 @@ The output helps the reverse engineer speed up the first few steps of analysis.
 
 DroidLysis can be used over Android packages (apk), Dalvik executables (dex), Zip files (zip), Rar files (rar) or directories of files.
 
-<img src="https://img.shields.io/badge/PyPi%20-3.4.8-blue">
+<img src="https://img.shields.io/badge/PyPi%20-3.4.9-blue">
 
 ## Installing DroidLysis
 
@@ -18,9 +18,9 @@ sudo apt-get install default-jre git python3 python3-pip unzip wget libmagic-dev
 
 2. Install Android disassembly tools
 
-- [Apktool](https://ibotpeaches.github.io/Apktool/) , 
-- [Baksmali](https://bitbucket.org/JesusFreke/smali/downloads), and optionally 
-- [Dex2jar](https://github.com/pxb1988/dex2jar) and 
+- [Apktool 2.9.3](https://ibotpeaches.github.io/Apktool/)
+- [Baksmali 2.5.2](https://bitbucket.org/JesusFreke/smali/downloads)
+- [Dex2jar 2.4](https://github.com/pxb1988/dex2jar) (optional)
 
 ```
 $ mkdir -p ~/softs
@@ -198,6 +198,8 @@ This script helps you search for methods on JEB UI that contain code that matche
 - JEB > File > Scripts > Run last Script
 
 ## Updates
+
+* v3.4.9 - Fixed Python warnings for invalid escape sequences.
 
 - v3.4.7 - Removed Procyon, integrated several PR #24 and #25, added more detailed accessibility abuse detection
 - v3.4.6 - Detecting manifest feature that automatically loads APK at install
